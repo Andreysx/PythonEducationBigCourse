@@ -43,9 +43,9 @@
 # Было:
 # my_math = int(input('2 + 2 = '))
 # if 2 + 2 == my_math:
-# print('Верно!')
+#   print('Верно!')
 # else:
-# print('Вы уверены?')
+#   print('Вы уверены?')
 # Стало:
 # 26
 # my_math = int(input('2 + 2 = '))
