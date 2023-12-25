@@ -1,0 +1,1 @@
+# return {value if value.__hash__ and value is not None else str(value): key for key, value in kwargs.items()}
