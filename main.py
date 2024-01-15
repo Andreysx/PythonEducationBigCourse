@@ -14,3 +14,27 @@
 #     print_hi('PyCharm')
 #
 # # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+# data = [25, -42, 146, 73, -100, 12]
+# print(list(map(str, data)))
+# print(max(data, key=lambda x: -x))
+# print(*filter(lambda x: not x[0].startswith('__'), globals().items()))
+
+#
+# data = {2, 4, 4, 6, 8, 10, 12}
+# res1 = {None: item for item in data if item > 4}
+# res2 = (item for item in data if item > 4)
+# res3 = [[item] for item in data if item > 4]
+# print(res1, res2, res3)
+
+
+# def gen(a: int, b: int) -> str:
+#     if a > b:
+#         a, b = b, a
+#     for i in range(a, b + 1):
+#         yield str(i)
+#
+#
+# for item in gen(10, 1):
+#     print(f'{item = }')
