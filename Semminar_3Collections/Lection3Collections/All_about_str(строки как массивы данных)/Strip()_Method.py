@@ -12,3 +12,8 @@
 # res = strinput.strip ( ' $No. 10 !' ) # store result into res variable
 # print ( " Given string is: ", strinput)
 # print ( " After removing the set of characters: ", res)
+
+# rstrip() Метод не превращающий в лист
+# # line = " sdfsfsfsfaa afasfaf "
+# # res = line.rstrip()
+# # print(res)
