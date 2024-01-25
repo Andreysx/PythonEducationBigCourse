@@ -17,6 +17,7 @@
 
 from random import randint, choice
 
+
 class Warrior:
     __START_HP = 100
 
@@ -38,13 +39,12 @@ class Warrior:
             raise TypeError("Не работает с этим типом")
 
 
-
 def fight(list_warriors: list[Warrior]):
     if len(list_warriors) < 2:
         return -1
     while True:
         if len(list_warriors) <= 1:
-                return list_warriors
+            return list_warriors
         random_attacker = choice(list_warriors)
         random_defender = choice([war for war in list_warriors if war != random_attacker])
         random_attacker.attack(random_defender)
