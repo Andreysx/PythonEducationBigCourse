@@ -33,10 +33,8 @@ def quicksort_2(array: list):
         return array
     else:
         pivot = array[(len(array) - 1) // 2]  # Опорный элемент - центральный элемент
-        less = [i for i in array if
-                i < pivot]  # Подмассив элементов меньших опорного(применяется List comprehension)
-        greater = [i for i in array if
-                   i > pivot]  # Подмассив элементов больших опорного(применяется List comprehension)
+        less = [i for i in array if i < pivot]  # Подмассив элементов меньших опорного(применяется List comprehension)
+        greater = [i for i in array if i > pivot]  # Подмассив элементов больших опорного(применяется List comprehension)
         return quicksort(less) + [pivot] + quicksort(greater)
 
 
