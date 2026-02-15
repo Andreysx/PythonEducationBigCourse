@@ -27,6 +27,15 @@ print(graph)
 # Поиск в ширину распространяется от начальной точки!
 # Поиск в ширину позволяет определять существует ли путь из A в B
 # Если путь существует, поиск в ширину определяет кратчайший путь
+# BFS работает с любыми типами графов
+# Направленными, ненаправленными.
+# Циклическими и ациклическими.
+# Связными и несвязными.
+# Разреженными и плотными.
+# Взвешенные графы: BFS не подходит для поиска кратчайшего пути во взвешенных графах.
+# Если у ребер разная длина (стоимость), BFS все равно будет считать, что переход по любому ребру стоит "1".
+# Это приведет к тому, что найденный путь может оказаться не самым коротким по сумме весов.
+# Для взвешенных графов используют алгоритмы Дейкстры или A* (если веса положительные) или Беллмана-Форда (если есть отрицательные веса).
 
 from collections import deque
 
@@ -43,7 +52,7 @@ def search(name):
     searched = []  # Массив для отслеживания уже проверенных узлов(ДЛЯ ПРЕДОТВРАЩЕНИЯ ЗАЦИКЛИВАНИЯ МЕЖДУ ДВУМЯ УЗЛАМИ)
     while search_queue:  # Пока очередь не пуста
         person = search_queue.popleft()  # Из очереди извлекается первый элемент
-        if person not in searched:  # Узел проверяется только в том случае если он не проверялся ранее
+        if person not in searched:  # Узел проверяется только в том случае если он не проверялся ранее(для работы с циклическими ненаправленными графами)
             if person_is_seller(person):  # Проверяем узел на правдивость функции для проверки
                 print(f'Found {person}')  # Да это то что искали
                 return True
@@ -54,3 +63,78 @@ def search(name):
 
 
 search('you')
+
+# Пример с реализацией графа классом
+
+from collections import deque
+from typing import Optional
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+root = TreeNode(val="A")
+root.left = TreeNode(val="B")
+root.right = TreeNode(val="C")
+root.left.left = TreeNode(val="D")
+root.left.right = TreeNode(val="E")
+root.right.left = TreeNode(val="F")
+root.right.right = TreeNode(val="G")
+
+
+def bfs(root: TreeNode):
+    q = deque()
+    q += [root]
+    while q:
+        for _ in range(len(q)):
+            node = q.popleft()
+            if node is not None:
+                print(node.val, end=" ")
+                q += [node.left]
+                q += [node.right]
+
+
+bfs(root)
+
+# Строчка for _ in range(len(q)): — это элегантный способ сказать:
+#
+# ("Обработай все узлы, которые сейчас есть в очереди (текущий уровень), и"
+#  " не обращай внимания на новые узлы (следующий уровень), которые мы добавим во время этой обработки")
+#
+# Это классический паттерн для уровневого обхода дерева (level-order traversal).
+
+
+# LeetCode 222. Count Complete Tree Nodes
+# Given the root of a complete binary tree, return the number of the nodes in the tree.
+#
+# Input: root = [1,2,3,4,5,6]
+# Output: 6
+
+
+# Definition for a binary tree node.
+from collections import deque
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        search_queue = deque([root])
+        count = 0
+        while search_queue:
+            for _ in range(len(search_queue)):
+                node = search_queue.popleft()
+                if node:
+                    count += 1
+                    search_queue += [node.left]
+                    search_queue += [node.right]
+        return count
